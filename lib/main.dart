@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:podsriver/constants/colors.dart';
-import 'package:podsriver/views/home_page.dart';
 
 
 
@@ -44,7 +43,7 @@ class Home extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)
         // ),
 
-        home: HomePage(),
+
       ),
     );
   }
