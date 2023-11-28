@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
 
           Image.asset('assets/images/merm.jpg',
             height: 300.h,
-            width: double.infinity, fit: BoxFit.cover,),
+            width: double.infinity, fit: BoxFit.fill,),
           AppSizes.gapH14,
                Sample(),
        Padding(
