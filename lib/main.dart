@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:podsriver/constants/app_sizes.dart';
 import 'package:podsriver/constants/colors.dart';
+import 'package:podsriver/provider/riverpod_providers.dart';
+import 'package:podsriver/views/home_page.dart';
 
 
 
 void main (){
-
- runApp(Home());
+// final colors = ['red', 'blue'];
+//
+// final newColors = [...colors,'purple', 'silver', 'gold'];
+// print(newColors);
+ runApp(ProviderScope(child: Home()));
 }
 
 
@@ -43,8 +50,9 @@ class Home extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)
         // ),
 
-
+   home: HomePage(),
       ),
     );
   }
 }
+
