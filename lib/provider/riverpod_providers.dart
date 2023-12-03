@@ -36,8 +36,11 @@ class TodoProvider extends Notifier<List<Note>>{
     state = [...state, note];
   }
 
-  void noteUpdate(){
-
+  void noteUpdate(Note newNote){
+   state = [
+     for(final n in state)
+       newNote.createdAt == n.createdAt ? newNote :n
+   ];
   }
 
   void noteRemove(Note note){
