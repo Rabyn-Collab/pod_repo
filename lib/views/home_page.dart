@@ -7,8 +7,9 @@ import 'package:podsriver/provider/riverpod_providers.dart';
 
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+   HomePage({super.key});
 
+   final textControl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,12 +28,16 @@ class HomePage extends StatelessWidget {
                 children: [
                   AppSizes.gapH12,
                   TextFormField(
+                    controller: textControl,
+
                     onFieldSubmitted: (val) {
+
                       final note = Note(
                           title: val.trim(),
                           createdAt: DateTime.now().toString()
                       );
                        ref.read(todoProvider.notifier).noteAdd(note);
+                       textControl.clear();
                     },
                     decoration: InputDecoration(
                         hintText: 'Add some',
@@ -50,6 +55,31 @@ class HomePage extends StatelessWidget {
                             return ListTile(
                               title: Text(note.title),
                               subtitle: Text(note.createdAt),
+                              trailing: Container(
+                                  width: 100,
+                                  child: Row(
+                                    children: [
+                                      IconButton(onPressed: (){}, icon:Icon(Icons.edit)),
+                                      IconButton(
+                                          onPressed: (){
+                                            showDialog(context: context, builder: (context){
+                                              return AlertDialog(
+                                                title: Text('Hold ON'),
+                                                content: Text('Are You sure ?'),
+                                                actions: [
+                                                  TextButton(onPressed: (){
+                                                    Navigator.pop(context);
+                                                    ref.read(todoProvider.notifier).noteRemove(note);
+                                                  }, child: Text('Yes')),
+                                                  TextButton(onPressed: (){
+                                                    Navigator.pop(context);
+                                                  }, child: Text('No')),
+                                                ],
+                                              );
+                                            });
+                                          }, icon:Icon(Icons.delete)),
+                                    ],
+                                  )),
                             );
                           })
                   )

@@ -40,8 +40,9 @@ class TodoProvider extends Notifier<List<Note>>{
 
   }
 
-  void noteRemove(){
-
+  void noteRemove(Note note){
+    state.remove(note);
+    state = [...state];
   }
 
 }
