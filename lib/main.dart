@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:podsriver/constants/app_sizes.dart';
+import 'package:podsriver/api_service/movie_service.dart';
 import 'package:podsriver/constants/colors.dart';
-import 'package:podsriver/provider/riverpod_providers.dart';
 import 'package:podsriver/views/home_page.dart';
 
 
 
-void main (){
-// final colors = ['red', 'blue'];
-//
-// final newColors = [...colors,'purple', 'silver', 'gold'];
-// print(newColors);
+
+void main () async{
+MovieService.getMovie().then((value) {
+  print('success condition');
+  print(value[0].poster_path);
+}).catchError((err){
+  print('error condition');
+  print(err);
+});
  runApp(ProviderScope(child: Home()));
 }
 

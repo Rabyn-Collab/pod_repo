@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.6
   flutter_screenutil: ^5.9.0
   flutter_riverpod: ^2.4.9
+  dio: ^5.4.0
 
 dev_dependencies:
   flutter_test:
