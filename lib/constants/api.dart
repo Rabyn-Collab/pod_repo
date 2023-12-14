@@ -1,12 +1,8 @@
 
 
 
-
 class Api{
 
-  static String baseUrl = 'https://api.themoviedb.org/3';
-  static String popularMovie = '$baseUrl/movie/popular';
-  static String topRatedMovie = '$baseUrl/movie/top_rated';
-  static String upComingMovie = '$baseUrl/movie/upcoming';
+  static String mealCategory = 'https://www.themealdb.com/api/json/v1/1/categories.php';
 
 }
