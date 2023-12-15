@@ -39,6 +39,7 @@ dependencies:
   flutter_riverpod: ^2.4.9
   dio: ^5.4.0
   cached_network_image: ^3.3.0
+  pod_player: ^0.2.1
 
 dev_dependencies:
   flutter_test:
