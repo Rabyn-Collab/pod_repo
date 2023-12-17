@@ -1,38 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:podsriver/provider/movie_provider.dart';
+import 'package:podsriver/constants/api.dart';
+import 'package:podsriver/views/widgets/tab_bar_widgets.dart';
 
 
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
-    final state = ref.watch(movieProvider);
-
-    return Scaffold(
-        body: SafeArea(
-          child: state.when(
-              data: (data){
-                return GridView.builder(
-                  itemCount: data.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3
-                    ),
-                    itemBuilder: (context, index){
-                      return Text(data[index].title);
-                    }
-                );
-              },
-              error: (err, st){
-                return Center(child: Text('$err'));
-              },
-              loading: (){
-                return Center(child: CircularProgressIndicator());
-              }
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text('Movie TMDB'),
+            bottom: TabBar(
+                tabs: [
+                Tab(
+                  text: 'Popular',
+                ),
+                  Tab(
+                    text: 'TopRated',
+                  ),
+                  Tab(
+                    text: 'Upcoming',
+                  )
+                ]
+            ),
           ),
-        )
+          body: TabBarView(
+              children: [
+                TabBarWidgets(api: Api.popularMovie),
+                TabBarWidgets(api: Api.topRatedMovie),
+                TabBarWidgets(api: Api.upComingMovie),
+              ],
+          )
+      ),
     );
   }
 }

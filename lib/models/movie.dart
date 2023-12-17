@@ -2,6 +2,7 @@ class Movie {
   final String title;
   final String overview;
   final String poster_path;
+  final String backdrop_path;
   final String vote_average;
   final int id;
 
@@ -10,6 +11,7 @@ class Movie {
       required this.id,
       required this.overview,
       required this.poster_path,
+      required this.backdrop_path,
       required this.vote_average});
 
   factory Movie.formJson(Map<String, dynamic> json) {
@@ -17,7 +19,8 @@ class Movie {
         title: json['title'],
         id: json['id'],
         overview: json['overview'],
-        poster_path: json['poster_path'],
+        backdrop_path: 'https://image.tmdb.org/t/p/w500${json['backdrop_path']}',
+        poster_path: 'https://image.tmdb.org/t/p/w500${json['poster_path']}',
         vote_average: json['vote_average'].toString());
   }
 

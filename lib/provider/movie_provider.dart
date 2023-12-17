@@ -4,4 +4,10 @@ import 'package:podsriver/api_service/movie_service.dart';
 
 
 
-final movieProvider = FutureProvider((ref) => MovieService.getMovie());
+
+
+final movieProvider = FutureProvider.family(
+        (ref, String apiPath) => MovieService.getMovie(apiPath: apiPath));
+
+final videoProvider = FutureProvider.family(
+        (ref, int id) => MovieService.getVideo(id: id));
