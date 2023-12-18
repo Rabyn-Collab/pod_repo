@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:podsriver/constants/api.dart';
+import 'package:podsriver/views/search_page.dart';
 import 'package:podsriver/views/widgets/tab_bar_widgets.dart';
 
 
@@ -14,6 +17,11 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             title: Text('Movie TMDB'),
+            actions: [
+              IconButton(onPressed: (){
+                Get.to(() => SearchPage(), transition:  Transition.leftToRight);
+              }, icon: Icon(CupertinoIcons.search))
+            ],
             bottom: TabBar(
                 tabs: [
                 Tab(
