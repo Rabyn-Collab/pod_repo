@@ -38,7 +38,6 @@ class MovieService {
      final response = await dio.get('${Api.getSearchMovie}', queryParameters: {
        'query': searchText
      });
-     print(response.data['results']);
      if((response.data['results'] as List).isEmpty){
        throw 'please provide another search keyword';
      }else{
