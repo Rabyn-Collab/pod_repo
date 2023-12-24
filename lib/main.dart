@@ -8,7 +8,8 @@ import 'package:podsriver/views/home_page.dart';
 
 
 void main () async{
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(Duration(milliseconds: 500));
  runApp(ProviderScope(child: Home()));
 }
 

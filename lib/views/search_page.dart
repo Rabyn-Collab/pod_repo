@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -7,8 +8,8 @@ import 'package:podsriver/views/detail_page.dart';
 
 
 class SearchPage extends ConsumerWidget {
-  const SearchPage({super.key});
-
+   SearchPage({super.key});
+final search = TextEditingController();
   @override
   Widget build(BuildContext context, ref) {
     final state= ref.watch(searchProvider);
@@ -22,11 +23,13 @@ class SearchPage extends ConsumerWidget {
           child: Column(
             children: [
              TextFormField(
+               controller: search,
                onFieldSubmitted: (val){
                  if(val.isEmpty){
 
                  }else{
                    ref.read(searchProvider.notifier).getSearchData(val.trim());
+                   search.clear();
                  }
                },
                decoration: InputDecoration(
@@ -54,7 +57,11 @@ class SearchPage extends ConsumerWidget {
                                   onTap: (){
                                     Get.to(() => DetailPage(movie: movie));
                                   },
-                                  child: Image.network(movie.poster_path));
+                                  child: CachedNetworkImage(
+                                    errorWidget: (s,t,v){
+                                       return Image.asset('assets/images/movie.png');
+                                    },
+                                     imageUrl: movie.poster_path));
                             }
                         );
                       },
