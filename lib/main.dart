@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:podsriver/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:podsriver/views/auth_page.dart';
 
 import 'firebase_options.dart';
 
@@ -25,13 +26,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
+        theme: ThemeData.dark(
           useMaterial3: true,
-          fontFamily: 'Raleway',
-          colorSchemeSeed: AppColors.mainColor,
-          scaffoldBackgroundColor: AppColors.backGroundColor,
         ),
-
+          home: AuthPage(),
     );
   }
 }

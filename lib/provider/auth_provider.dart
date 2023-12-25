@@ -4,12 +4,12 @@ import 'package:podsriver/api_service/auth_service.dart';
 
 
 
+final authProvider = AsyncNotifierProvider(() => AuthProvider());
 
 class AuthProvider extends AsyncNotifier{
 
   @override
   FutureOr build() {
-
   }
 
   Future<void> userLogin({
