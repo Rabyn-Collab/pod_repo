@@ -10,6 +10,7 @@ class AuthProvider extends AsyncNotifier{
 
   @override
   FutureOr build() {
+
   }
 
   Future<void> userLogin({

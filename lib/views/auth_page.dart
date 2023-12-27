@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:podsriver/constants/app_sizes.dart';
+import 'package:podsriver/provider/auth_provider.dart';
 
 
-class AuthPage extends StatefulWidget {
+class AuthPage extends ConsumerStatefulWidget {
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  ConsumerState<AuthPage> createState() => _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthPageState extends ConsumerState<AuthPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(authProvider);
+ print(state);
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Form'),
@@ -50,9 +54,12 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: (){
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState?.saveAndValidate(focusOnInvalid: false) ?? false) {
-                          print((_formKey.currentState?.value.toString()));
+                             final map = _formKey.currentState!.value;
+                             ref.read(authProvider.notifier).userLogin(
+                                 email: map['email'], password: map['password']
+                             );
                         }
-                      }, child: Text('submit')
+                      }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
                   )
                 ],
               )

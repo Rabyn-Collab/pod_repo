@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:podsriver/constants/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:podsriver/views/auth_page.dart';
+import 'package:podsriver/views/sample_page.dart';
 
 import 'firebase_options.dart';
 
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
         theme: ThemeData.dark(
           useMaterial3: true,
         ),
-          home: AuthPage(),
+          home: SamplePage(),
     );
   }
 }
