@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
         theme: ThemeData.dark(
           useMaterial3: true,
         ),
-          home: SamplePage(),
+          home: AuthPage(),
     );
   }
 }

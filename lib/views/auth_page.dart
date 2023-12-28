@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:podsriver/constants/app_sizes.dart';
 import 'package:podsriver/provider/auth_provider.dart';
+import 'package:podsriver/provider/other_provider.dart';
 
 
 class AuthPage extends ConsumerStatefulWidget {
@@ -17,11 +20,22 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authProvider, (previous, next) {
+       if(next.hasError && !next.isLoading){
+           ScaffoldMessenger.of(context).showSnackBar(
+               SnackBar(
+                   duration: Duration(seconds: 5),
+                   content: Text(next.error.toString())
+               )
+           );
+       }
+    });
     final state = ref.watch(authProvider);
- print(state);
+    final isLogin = ref.watch(loginProvider);
+    final image = ref.watch(imageProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login Form'),
+        title: Text(isLogin ? 'Login Form': 'SignUp Form'),
       ),
 
         body: Padding(
@@ -30,6 +44,15 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               key: _formKey,
               child: ListView(
                 children: [
+
+                if(!isLogin)  FormBuilderTextField(
+                    name: 'fullname',
+                    decoration: const InputDecoration(labelText: 'FullName'),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                    ]),
+                  ),
+                  AppSizes.gapH10,
                   FormBuilderTextField(
                     name: 'email',
                     decoration: const InputDecoration(labelText: 'Email'),
@@ -49,6 +72,21 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                     ]),
                   ),
                   AppSizes.gapH20,
+                 if(!isLogin) InkWell(
+                   onTap: (){
+                     ref.read(imageProvider.notifier).pickImage();
+                   },
+                   child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white)
+                      ),
+                      height: 140,
+                      width: double.infinity,
+                      child: image == null ? Center(child: Text('please select an image'))
+                     : Image.file(File(image.path))
+                     ,
+                    ),
+                 ),
                   AppSizes.gapH20,
                   ElevatedButton(
                       onPressed: (){
@@ -60,6 +98,16 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                              );
                         }
                       }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
+                  ),
+                  AppSizes.gapH16,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(isLogin ? 'Don\'t have an Acoount': 'Already have an Acoount'),
+                      TextButton(onPressed: (){
+                        ref.read(loginProvider.notifier).change();
+                      }, child: Text(isLogin ? 'Sign Up': 'Login'))
+                    ],
                   )
                 ],
               )
