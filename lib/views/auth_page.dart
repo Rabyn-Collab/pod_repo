@@ -104,7 +104,12 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(isLogin ? 'Don\'t have an Acoount': 'Already have an Acoount'),
-                      TextButton(onPressed: (){
+                      TextButton(
+                          style: TextButton.styleFrom(
+                            // backgroundColor: Colors.white,
+                            // foregroundColor: Colors.black,
+                          ),
+                          onPressed: (){
                         ref.read(loginProvider.notifier).change();
                       }, child: Text(isLogin ? 'Sign Up': 'Login'))
                     ],

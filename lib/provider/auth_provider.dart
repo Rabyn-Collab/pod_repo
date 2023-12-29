@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:podsriver/api_service/auth_service.dart';
@@ -6,6 +7,7 @@ import 'package:podsriver/api_service/auth_service.dart';
 
 
 final authProvider = AsyncNotifierProvider(() => AuthProvider());
+final userStream = StreamProvider((ref) => FirebaseAuth.instance.authStateChanges());
 
 class AuthProvider extends AsyncNotifier{
 
