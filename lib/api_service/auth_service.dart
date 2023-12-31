@@ -34,7 +34,7 @@ class AuthService {
        await ref.putFile(File(image.path));
        final url = await ref.getDownloadURL();
 
-       final response = await _auth.signInWithEmailAndPassword(email: email, password: password);
+       final response = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
       await FirebaseChatCore.instance.createUserInFirestore(
         types.User(
@@ -53,6 +53,16 @@ class AuthService {
       throw '${err.message}';
     }
   }
+
+
+  static  Future<void> userLogOut() async{
+    try{
+      await _auth.signOut();
+    }on FirebaseAuthException catch(err){
+      throw '${err.message}';
+    }
+  }
+
 
 
 }

@@ -33,6 +33,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
     final state = ref.watch(authProvider);
     final isLogin = ref.watch(loginProvider);
     final image = ref.watch(imageProvider);
+    final isShow = ref.watch(toggleProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(isLogin ? 'Login Form': 'SignUp Form'),
@@ -64,7 +65,13 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                   AppSizes.gapH10,
                   FormBuilderTextField(
                     name: 'password',
-                    decoration: const InputDecoration(labelText: 'Password'),
+                    obscureText: isShow ? false: true,
+                    decoration:  InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: (){
+                             ref.read(toggleProvider.notifier).change();
+                        }, icon: Icon(isShow ?Icons.remove_red_eye: Icons.lock_open_sharp)),
+                        labelText: 'Password'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(6),
@@ -92,10 +99,25 @@ class _AuthPageState extends ConsumerState<AuthPage> {
                       onPressed: (){
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState?.saveAndValidate(focusOnInvalid: false) ?? false) {
-                             final map = _formKey.currentState!.value;
-                             ref.read(authProvider.notifier).userLogin(
-                                 email: map['email'], password: map['password']
-                             );
+                          final map = _formKey.currentState!.value;
+                          if(isLogin){
+                            ref.read(authProvider.notifier).userLogin(
+                                email: map['email'], password: map['password']
+                            );
+                          }else{
+                            if(image == null){
+
+                            }else{
+                              ref.read(authProvider.notifier).userRegister(
+                                image: image,
+                                  username: map['fullname'],
+                                  email: map['email'],
+                                  password: map['password']
+                              );
+                            }
+
+                          }
+
                         }
                       }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
                   ),

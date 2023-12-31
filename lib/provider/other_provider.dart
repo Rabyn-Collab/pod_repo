@@ -15,6 +15,23 @@ class LoginProvider extends Notifier<bool> {
   }
 }
 
+
+final toggleProvider =
+NotifierProvider<ToggleProvider, bool>(() => ToggleProvider());
+
+class ToggleProvider extends Notifier<bool> {
+  @override
+  bool build() {
+    return false;
+  }
+
+  void change() {
+    state = !state;
+  }
+}
+
+
+
 final imageProvider =
     NotifierProvider<ImageProvider, XFile?>(() => ImageProvider());
 
