@@ -14,7 +14,7 @@ class HomePage extends ConsumerWidget{
 
     final state = ref.watch(friendStream);
     final userData = ref.watch(userProfile(FirebaseAuth.instance.currentUser!.uid));
-    print(userData);
+
     return Scaffold(
       appBar: AppBar(
 
@@ -22,6 +22,24 @@ class HomePage extends ConsumerWidget{
         drawer: Drawer(
           child: ListView(
             children: [
+              userData.when(
+                  data: (data){
+                    return DrawerHeader(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
+                              image: NetworkImage(data.imageUrl!))
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                          Text(data.firstName!),
+                          Text(data.metadata!['email']),
+                    ],));
+                  },
+                  error: (err, st) => Center(child: Text('$err')),
+                  loading: () => Center(child: CircularProgressIndicator())),
               ListTile(
                 onTap: (){
                   ref.read(authProvider.notifier).userLogOut();

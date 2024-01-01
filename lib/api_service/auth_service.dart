@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
+
 
 
 class AuthService {
@@ -15,6 +16,7 @@ class AuthService {
     required String email,
     required String password
   }) async{
+
       try{
         await _auth.signInWithEmailAndPassword(email: email, password: password);
       }on FirebaseAuthException catch(err){
@@ -43,7 +45,8 @@ class AuthService {
           imageUrl: url,
           lastName: 'Doe',
           metadata: {
-            'email': email
+            'email': email,
+            // 'middleName': ''
           }
         ),
       );

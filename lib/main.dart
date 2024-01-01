@@ -1,14 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:podsriver/views/auth_page.dart';
+import 'package:podsriver/firebase_options.dart';
 import 'package:podsriver/views/status_page.dart';
 
-
-import 'firebase_options.dart';
 
 
 void main () async{
