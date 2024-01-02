@@ -2,19 +2,19 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:podsriver/models/product.dart';
+import 'package:podsriver/models/post.dart';
 
 
 
 
-class ProductService {
+class PostService {
 
   static final  _db = FirebaseFirestore.instance.collection('posts');
 
-static Stream<List<Product>> getProducts(){
+static Stream<List<Post>> getPosts(){
   return  _db.snapshots().map((event) => event.docs.map((e) {
       final json = e.data();
-      return Product(
+      return Post(
           imageUrl: json['imageUrl'],
           title: json['title'],
           detail: json['detail'],

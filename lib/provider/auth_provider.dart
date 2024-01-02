@@ -9,8 +9,8 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 
 final authProvider = AsyncNotifierProvider(() => AuthProvider());
-final userStream = StreamProvider((ref) => FirebaseAuth.instance.authStateChanges());
-final friendStream = StreamProvider((ref) => FirebaseChatCore.instance.users());
+final userStream = StreamProvider.autoDispose((ref) => FirebaseAuth.instance.authStateChanges());
+final friendStream = StreamProvider.autoDispose((ref) => FirebaseChatCore.instance.users());
 
 
 final userProfile = StreamProvider.family((ref, String id) {

@@ -1,7 +1,7 @@
 
 
 
-class Product{
+class Post{
   final String title;
   final String id;
   final String detail;
@@ -11,7 +11,7 @@ class Product{
   final Like like;
   final List<Comment> comments;
 
-  Product({
+  Post({
     required this.imageUrl,
     required this.title,
     required this.detail,
@@ -35,7 +35,10 @@ class Like{
 });
 
   factory Like.fromJson(Map<String, dynamic> json){
-    return Like(likes: json['likes'], usernames: json['usernames']);
+    return Like(
+        likes: json['likes'],
+        usernames: (json['usernames'] as List).map((e) => e as String).toList()
+    );
   }
 
 }
