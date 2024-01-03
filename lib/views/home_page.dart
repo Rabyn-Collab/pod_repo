@@ -5,14 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:podsriver/provider/auth_provider.dart';
 import 'package:podsriver/provider/post_provider.dart';
+import 'package:podsriver/views/detail_page.dart';
 import 'package:podsriver/views/widgets/add_page.dart';
 import 'package:podsriver/views/widgets/update_page.dart';
-
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 
 
 class HomePage extends ConsumerWidget{
-  const HomePage({super.key});
+
+
+   types.User? user;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -30,6 +33,8 @@ class HomePage extends ConsumerWidget{
             children: [
               userData.when(
                   data: (data){
+                    user= data;
+
                     return DrawerHeader(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -117,7 +122,9 @@ class HomePage extends ConsumerWidget{
                                 final post = data[index];
                                 return MaterialButton(
                                   padding: EdgeInsets.zero,
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    Get.to(() => DetailPage(id: post.id), transition: Transition.leftToRight);
+                                  },
                                   child: Card(
                                     child: Padding(
                                       padding: const EdgeInsets.all(10.0),
@@ -162,6 +169,29 @@ class HomePage extends ConsumerWidget{
                                               return Center(child: CircularProgressIndicator());
                                             },
                                              imageUrl: post.imageUrl, height: 300,),
+                                          Row(
+                                            children: [
+                                              Expanded(child: Text(post.detail)),
+                                            if(userId != post.userId)  Row(
+                                                children: [
+                                                  IconButton(onPressed: (){
+                                                    if(post.like.usernames.contains(user?.firstName)){
+                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                          duration: Duration(seconds: 1),
+                                                          content: Text('You have already like this post')));
+                                                    }else{
+                                                     ref.read(postProvider.notifier).likePost(
+                                                         postId: post.id,
+                                                         prevLike: post.like.likes,
+                                                         usernames: [...post.like.usernames, user!.firstName!]
+                                                     );
+                                                    }
+                                                  }, icon: Icon(Icons.thumb_up_alt_outlined)),
+                                                  Text(post.like.likes > 0 ?  '${post.like.likes}': '')
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ),

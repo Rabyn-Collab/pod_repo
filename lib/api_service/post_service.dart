@@ -58,6 +58,42 @@ static Stream<List<Post>> getPosts(){
   }
 
 
+
+
+  static  Future<void> likePost({
+    required String postId,
+    required int prevLike,
+    required List<String> usernames
+  }) async{
+    try{
+
+      await  _db.doc(postId).update({
+        'like': {
+          'likes': prevLike + 1,
+          'usernames': usernames
+        },
+      });
+    }on FirebaseException catch(err){
+      throw '${err.message}';
+    }
+  }
+
+
+  static  Future<void> addComment({
+    required String postId,
+    required String imageId
+  }) async{
+    try{
+
+      final ref = FirebaseStorage.instance.ref().child('postImage/$imageId');
+      await ref.delete();
+      await  _db.doc(postId).delete();
+    }on FirebaseException catch(err){
+      throw '${err.message}';
+    }
+  }
+
+
   static  Future<void> removePost({
     required String postId,
     required String imageId
