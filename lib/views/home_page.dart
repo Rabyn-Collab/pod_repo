@@ -123,7 +123,7 @@ class HomePage extends ConsumerWidget{
                                 return MaterialButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: (){
-                                    Get.to(() => DetailPage(id: post.id), transition: Transition.leftToRight);
+                                    Get.to(() => DetailPage(id: post.id, user: user!), transition: Transition.leftToRight);
                                   },
                                   child: Card(
                                     child: Padding(

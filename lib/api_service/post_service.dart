@@ -81,13 +81,13 @@ static Stream<List<Post>> getPosts(){
 
   static  Future<void> addComment({
     required String postId,
-    required String imageId
+    required List<Comment> comments
   }) async{
     try{
 
-      final ref = FirebaseStorage.instance.ref().child('postImage/$imageId');
-      await ref.delete();
-      await  _db.doc(postId).delete();
+      await  _db.doc(postId).update({
+        'comments': comments.map((e) => e.toMap()).toList()
+      });
     }on FirebaseException catch(err){
       throw '${err.message}';
     }

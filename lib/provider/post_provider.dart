@@ -81,4 +81,12 @@ class PostProvider extends AsyncNotifier{
         postId: postId, prevLike: prevLike, usernames: usernames));
   }
 
+  Future<void> addComment({
+    required String postId,
+    required List<Comment> comments
+  }) async{
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() => PostService.addComment(postId: postId, comments: comments));
+  }
+
 }

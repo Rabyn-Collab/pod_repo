@@ -52,8 +52,13 @@ class Comment{
     required this.userImage,
     required this.username
 });
+
+
   factory Comment.fromJson(Map<String, dynamic> json){
     return Comment(comment: json['comment'], userImage: json['userImage'], username: json['username']);
+  }
+  Map<String, dynamic> toMap(){
+    return {'comment': this.comment, 'userImage': this.userImage, 'username': this.username};
   }
 
 }
