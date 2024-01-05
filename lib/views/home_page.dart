@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:podsriver/api_service/api_service.dart';
 import 'package:podsriver/provider/auth_provider.dart';
 import 'package:podsriver/provider/post_provider.dart';
 import 'package:podsriver/views/detail_page.dart';
@@ -24,6 +25,9 @@ class HomePage extends ConsumerWidget{
     final userData = ref.watch(userProfile(FirebaseAuth.instance.currentUser!.uid));
      final posts = ref.watch(postsStream);
      final userId = FirebaseAuth.instance.currentUser!.uid;
+     //final st = ref.watch(commentProvider);
+
+
     return Scaffold(
       appBar: AppBar(
 

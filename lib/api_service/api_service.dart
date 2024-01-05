@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:podsriver/models/comment_data.dart';
 
 import '../models/news.dart';
 
@@ -21,4 +23,16 @@ class ApiService{
     }
   }
 
+
+ static Future<List<CommentData>> getComments() async{
+   try{
+     final response = await _dio.get('https://dummyjson.com/comments');
+     return (response.data['comments'] as List).map((e) => CommentData.fromJson(e)).toList();
+   }on DioException catch (err){
+     throw '${err.message}';
+   }
+ }
+
 }
+
+final commentProvider = FutureProvider((ref) => ApiService.getComments());

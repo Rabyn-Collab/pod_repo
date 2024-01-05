@@ -11,6 +11,24 @@ final postProvider = AsyncNotifierProvider(() => PostProvider());
 final postsStream = StreamProvider((ref) => PostService.getPosts());
 
 
+final getPostByUser = StreamProvider.family((ref, String userId) {
+  final datas = FirebaseFirestore.instance.collection('posts').where('userId',isEqualTo: userId).snapshots();
+  return  datas.map((event) => event.docs.map((e) {
+    final json = e.data();
+    return Post(
+        imageUrl: json['imageUrl'],
+        title: json['title'],
+        detail: json['detail'],
+        id: e.id,
+        imageId: json['imageId'],
+        userId: json['userId'],
+        like: Like.fromJson(json['like']),
+        comments: (json['comments'] as List).map((e) => Comment.fromJson(e)).toList()
+    );
+  }).toList());
+});
+
+
 final singlePostStream = StreamProvider.family((ref, String id) {
   final postDb = FirebaseFirestore.instance.collection('posts');
 
