@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:podsriver/api_service/api_service.dart';
 import 'package:podsriver/provider/auth_provider.dart';
+import 'package:podsriver/provider/other_provider.dart';
 import 'package:podsriver/provider/post_provider.dart';
 import 'package:podsriver/views/detail_page.dart';
+import 'package:podsriver/views/recent_chats.dart';
+import 'package:podsriver/views/user_detail.dart';
 import 'package:podsriver/views/widgets/add_page.dart';
 import 'package:podsriver/views/widgets/update_page.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -27,10 +29,14 @@ class HomePage extends ConsumerWidget{
      final userId = FirebaseAuth.instance.currentUser!.uid;
      //final st = ref.watch(commentProvider);
 
-
+final mode = ref.watch(toggleThemeProvider);
     return Scaffold(
       appBar: AppBar(
-
+        actions: [
+          IconButton(onPressed: (){
+            ref.read(toggleThemeProvider.notifier).change();
+          }, icon: Icon(mode ? Icons.dark_mode: Icons.light_mode))
+        ],
       ),
         drawer: Drawer(
           child: ListView(
@@ -38,7 +44,6 @@ class HomePage extends ConsumerWidget{
               userData.when(
                   data: (data){
                     user= data;
-
                     return DrawerHeader(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -55,6 +60,14 @@ class HomePage extends ConsumerWidget{
                   },
                   error: (err, st) => Center(child: Text('$err')),
                   loading: () => Center(child: CircularProgressIndicator())),
+              ListTile(
+                onTap: (){
+                  Navigator.of(context).pop();
+                  Get.to(() => RecentChats(), transition:  Transition.leftToRight);
+                },
+                title: Text('Recent Chats'),
+                leading: Icon(Icons.chat),
+              ),
               ListTile(
                 onTap: (){
                   Navigator.of(context).pop();
@@ -90,14 +103,19 @@ class HomePage extends ConsumerWidget{
                               itemCount: data.length,
                               itemBuilder: (context, index){
                                 final useData = data[index];
-                                return Column(
-                                  children: [
-                                     CircleAvatar(
-                                       radius: 30,
-                                       backgroundImage: NetworkImage(useData.imageUrl!),
-                                     ),
-                                    Text(useData.firstName!)
-                                  ],
+                                return InkWell(
+                                  onTap: (){
+                                    Get.to(() => UserDetail(user: useData));
+                                  },
+                                  child: Column(
+                                    children: [
+                                       CircleAvatar(
+                                         radius: 30,
+                                         backgroundImage: NetworkImage(useData.imageUrl!),
+                                       ),
+                                      Text(useData.firstName!)
+                                    ],
+                                  ),
                                 );
                               }
                           );

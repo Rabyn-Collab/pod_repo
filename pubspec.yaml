@@ -58,6 +58,7 @@ dependencies:
   cloud_firestore: ^4.13.6
   flutter_firebase_chat_core: ^1.6.7
 
+
 flutter_native_splash:
   color: "#ffffff"
   image: assets/images/movie.png
@@ -75,6 +76,9 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  riverpod_generator: ^2.3.9
+  build_runner: ^2.4.7
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

@@ -1,5 +1,20 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:image_picker/image_picker.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'other_provider.g.dart';
+
+@riverpod
+class ToggleTheme extends _$ToggleTheme {
+  @override
+  bool build() {
+    return true ;
+  }
+
+  void change(){
+    state = !state;
+  }
+}
 
 final loginProvider =
     NotifierProvider<LoginProvider, bool>(() => LoginProvider());

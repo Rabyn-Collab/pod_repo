@@ -10,12 +10,13 @@ class RoomService {
 
   static final  _chat = FirebaseChatCore.instance;
 
-  static  Future<void> roomCreate({
+  static  Future<types.Room> roomCreate({
     required types.User user,
   }) async{
 
     try{
-      await _chat.createRoom(user);
+     final response  = await _chat.createRoom(user);
+      return response;
     }on FirebaseException catch(err){
       throw '${err.message}';
     }

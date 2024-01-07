@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:podsriver/firebase_options.dart';
+import 'package:podsriver/provider/other_provider.dart';
 import 'package:podsriver/views/status_page.dart';
 
 
@@ -19,16 +20,17 @@ void main () async{
 }
 
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final mode = ref.watch(toggleThemeProvider);
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(
+        theme: mode ? ThemeData.dark(
           useMaterial3: true,
-        ),
+        ): ThemeData.light(useMaterial3: true),
           home: StatusPage(),
     );
   }

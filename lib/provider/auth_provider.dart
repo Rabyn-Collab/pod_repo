@@ -8,7 +8,7 @@ import 'package:podsriver/api_service/auth_service.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 
-final authProvider = AsyncNotifierProvider(() => AuthProvider());
+
 final userStream = StreamProvider.autoDispose((ref) => FirebaseAuth.instance.authStateChanges());
 final friendStream = StreamProvider.autoDispose((ref) => FirebaseChatCore.instance.users());
 
@@ -27,6 +27,8 @@ final userProfile = StreamProvider.family((ref, String id) {
     });
 });
 
+
+final authProvider = AsyncNotifierProvider(() => AuthProvider());
 class AuthProvider extends AsyncNotifier{
 
   @override
