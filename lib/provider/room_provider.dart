@@ -7,6 +7,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 part 'room_provider.g.dart';
 
 final roomsStream = StreamProvider((ref) => FirebaseChatCore.instance.rooms());
+final messageStream = StreamProvider.family((ref, types.Room room) => FirebaseChatCore.instance.messages(room));
 
 @riverpod
 class RoomNotify extends _$RoomNotify {

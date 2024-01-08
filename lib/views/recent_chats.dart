@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:podsriver/provider/room_provider.dart';
+import 'package:podsriver/views/chat_page.dart';
 
 
 class RecentChats extends ConsumerWidget{
@@ -17,6 +19,9 @@ class RecentChats extends ConsumerWidget{
                   itemBuilder: (context, index){
                     final room = data[index];
                     return ListTile(
+                      onTap: (){
+                        Get.to(() => ChatPage(room: room), transition: Transition.leftToRight);
+                      },
                        leading: CircleAvatar(
                          backgroundImage: NetworkImage(room.imageUrl!),
                        ),

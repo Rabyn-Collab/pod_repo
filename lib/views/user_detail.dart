@@ -13,12 +13,6 @@ class UserDetail extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
 
     ref.listen(roomNotifyProvider, (previous, next) {
-      print('value ${next.value}');
-      print('error ${next.error}');
-      print('hasValue ${next.hasValue}');
-      print('reload ${next.isReloading}');
-      print('load ${next.isLoading}');
-      print('refresh ${next.isRefreshing}');
 
        if(!next.hasError && !next.isLoading){
           if(next.value != null){
