@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:get/get.dart';
 import 'package:podsriver/constants/app_sizes.dart';
 import 'package:podsriver/provider/post_provider.dart';
 import 'package:podsriver/provider/room_provider.dart';
+import 'package:podsriver/views/chat_page.dart';
 
 class UserDetail extends ConsumerWidget {
   final types.User user;
@@ -16,7 +18,7 @@ class UserDetail extends ConsumerWidget {
 
        if(!next.hasError && !next.isLoading){
           if(next.value != null){
-
+            Get.to(() => ChatPage(room: next.value  as types.Room));
           }
        }
     });
