@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:podsriver/notification_service.dart';
 import 'package:podsriver/provider/auth_provider.dart';
 import 'package:podsriver/provider/other_provider.dart';
 import 'package:podsriver/provider/post_provider.dart';
@@ -47,6 +48,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            //     ),
            //   );
            // }
+           NotificationService.showFlutterNotification(message);
          }
        },
      );
@@ -61,6 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            print("message.data11 ${message.data}");
            // LocalNotificationService.display(message);
 
+           NotificationService.showFlutterNotification(message);
          }
        },
      );
@@ -73,6 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            print(message.notification!.title);
            print(message.notification!.body);
            print("message.data22 ${message.data['_id']}");
+           NotificationService.showFlutterNotification(message);
          }
        },
      );

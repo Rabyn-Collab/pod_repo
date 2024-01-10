@@ -7,7 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'main.dart';
 
 class NotificationService {
-  void showFlutterNotification(RemoteMessage message) {
+ static void showFlutterNotification(RemoteMessage message) {
     RemoteNotification? notification = message.notification;
     // AndroidNotification? android = message.notification?.android;
     if (notification != null) {

@@ -23,6 +23,10 @@ importance: Importance.high,
 
 final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+const InitializationSettings initializationSettings =
+InitializationSettings(
+  android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+);
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +36,7 @@ void main () async{
   );
   await Future.delayed(Duration(milliseconds: 500));
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  flutterLocalNotificationsPlugin.initialize(initializationSettings);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
       AndroidFlutterLocalNotificationsPlugin>()
