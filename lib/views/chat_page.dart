@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,9 @@ import 'package:podsriver/provider/room_provider.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   final types.Room room;
-  const ChatPage({super.key, required this.room});
+  final String token;
+  final String currentName;
+  const ChatPage({super.key, required this.room, required this.token, required this.currentName});
 
   @override
   ConsumerState<ChatPage> createState() => _ChatPageState();
@@ -59,8 +62,28 @@ class _ChatPageState extends ConsumerState<ChatPage> {
                                }
                           });
                         },
-                        onSendPressed: (val){
+                        onSendPressed: (val) async{
+                          final dio = Dio();
                           FirebaseChatCore.instance.sendMessage(val, widget.room.id);
+                          try{
+                            await dio.post('https://fcm.googleapis.com/fcm/send', data: {
+                              "to": "cyzUmtpsRPKvQxr_IFyMHo:APA91bFkPI3BgX8UBWtUx0lgZ_EoNBGHxSHKRBQTlk-smJmXU5oLSkiFmf31osxFnwHlN66Kyrh7exg20n432rlyPIETvOi75mfCr7PCCbBH29NrIVKH9teY27EjgspML8xqhfVxuEzP",
+                              "priority": "High",
+                              "default_notification_channel_id": "high_importance_channel",
+                              "notification":{
+                                "body": val.text.trim(),
+                                "title":"wow a notify"
+                              },
+
+                            }, options: Options(
+                              headers:  {
+                                'Authorization': 'key=AAAAMx9eYIM:APA91bFKYWRg3zHUWacpFKJsjNbOInmGs-u3TeEHNnADh68xBJATj28MNKxyZCt5NkALnAuJDXcBb2d6gSqJ5xpe4Wq8nhFHGbaj-oFE-PvOOvy9TWPS0zOlW_e9Hd-05LQH9fD60-kX'
+                            }
+                            ));
+                          }catch(err){
+
+                          }
+
                         },
                         user: types.User(
                             id: FirebaseAuth.instance.currentUser!.uid

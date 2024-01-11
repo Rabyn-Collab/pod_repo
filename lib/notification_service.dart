@@ -1,31 +1,36 @@
-
-
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:podsriver/main.dart';
 
-import 'main.dart';
 
 class NotificationService {
- static void showFlutterNotification(RemoteMessage message) {
-    RemoteNotification? notification = message.notification;
-    // AndroidNotification? android = message.notification?.android;
-    if (notification != null) {
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            channelDescription: channel.description,
-            // TODO add a proper drawable resource to android, for now using
-            //      one that already exists in example app.
-            icon: 'launch_background',
-          ),
+
+
+
+
+  static void createAndDisplaynotification(RemoteMessage message) async {
+    try {
+      final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      const NotificationDetails notificationDetails = NotificationDetails(
+        android: AndroidNotificationDetails(
+          "high_importance_channel",
+          "high_importance_channel",
+          importance: Importance.max,
+          priority: Priority.high,
         ),
       );
+
+      await flutterLocalNotificationsPlugin.show(
+        id,
+        message.notification!.title,
+        message.notification!.body,
+        notificationDetails,
+      );
+    } on Exception catch (e) {
+      print(e);
     }
   }
+
+
+
 }

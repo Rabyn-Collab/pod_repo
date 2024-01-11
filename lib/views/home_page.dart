@@ -48,7 +48,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            //     ),
            //   );
            // }
-           NotificationService.showFlutterNotification(message);
+           NotificationService.createAndDisplaynotification(message);
          }
        },
      );
@@ -63,7 +63,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            print("message.data11 ${message.data}");
            // LocalNotificationService.display(message);
 
-           NotificationService.showFlutterNotification(message);
+           NotificationService.createAndDisplaynotification(message);
          }
        },
      );
@@ -76,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
            print(message.notification!.title);
            print(message.notification!.body);
            print("message.data22 ${message.data['_id']}");
-           NotificationService.showFlutterNotification(message);
+           NotificationService.createAndDisplaynotification(message);
          }
        },
      );

@@ -10,18 +10,21 @@ import 'package:podsriver/provider/other_provider.dart';
 import 'package:podsriver/views/status_page.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('Handling a background message ${message.messageId}');
+
+  await Firebase.initializeApp();
+
+
 }
 
-final channel = const AndroidNotificationChannel(
-'high_importance_channel', // id
-'high_importance_channel', // title
-description:
-'This channel is used for important notifications.', // description
-importance: Importance.high,
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  "high_importance_channel",
+  "high_importance_channel",
+  importance: Importance.high,
 );
 
-final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
 
 const InitializationSettings initializationSettings =
 InitializationSettings(
@@ -36,11 +39,12 @@ void main () async{
   );
   await Future.delayed(Duration(milliseconds: 500));
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  flutterLocalNotificationsPlugin.initialize(initializationSettings);
   await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
+  flutterLocalNotificationsPlugin.initialize(
+    initializationSettings,
+  );
 
   runApp(ProviderScope(child: Home()));
 }
