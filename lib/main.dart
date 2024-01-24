@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'views/auth/login_page.dart';
+
 
 
 
@@ -20,7 +22,7 @@ class Home extends StatelessWidget {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-
+       home: LoginPage(),
     );
   }
 }
