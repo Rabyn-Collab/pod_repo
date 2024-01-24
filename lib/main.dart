@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:podsriver/home_page.dart';
-
 
 
 
@@ -22,7 +20,7 @@ class Home extends StatelessWidget {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: TodoListView(),
+
     );
   }
 }
