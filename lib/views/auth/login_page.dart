@@ -21,7 +21,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       if(next.hasError && !next.isLoading){
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-                duration: Duration(seconds: 5),
+                duration: Duration(seconds: 1),
                 content: Text(next.error.toString())
             )
         );
@@ -76,7 +76,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         if (_formKey.currentState?.saveAndValidate(focusOnInvalid: false) ?? false) {
                           final map = _formKey.currentState!.value;
 
-
+                            ref.read(authProvider.notifier).userLogin(
+                                email: map['email'], password: map['password']);
 
                         }
                       }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
