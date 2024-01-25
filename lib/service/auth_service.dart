@@ -8,11 +8,14 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+
+
     try {
       final response = await _dio.post(Api.userLogin, data: {
         'email': email,
         'password': password
       });
+      print(response);
     } on DioException catch (err) {
       throw '${err.response}';
     }
