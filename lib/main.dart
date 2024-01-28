@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'views/auth/login_page.dart';
@@ -26,9 +27,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
        home: LoginPage(),
     );

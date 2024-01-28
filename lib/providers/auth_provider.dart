@@ -5,18 +5,29 @@ part 'auth_provider.g.dart';
 
 
 @riverpod
-class Auth extends _$Auth {
+class LoginAuth extends _$LoginAuth {
   @override
   FutureOr<void> build() async {
 
   }
 
-   Future userLogin({
-    required String email,
-    required String password,
-  }) async {
+   Future userLogin({required Map data}) async {
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => AuthService.userLogin(email: email, password: password));
+    state = await AsyncValue.guard(() => AuthService.userLogin(data: data));
+  }
+
+}
+
+@riverpod
+class SignUpAuth extends _$SignUpAuth {
+  @override
+  FutureOr<void> build() async {
+
+  }
+
+  Future userSignUp({required Map data}) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => AuthService.userSignUp(data: data));
   }
 
 }

@@ -4,22 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:podsriver/providers/auth_provider.dart';
-import 'package:podsriver/views/auth/sign_up_page.dart';
 
 
 
-class LoginPage extends ConsumerStatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(loginAuthProvider, (previous, next) {
+    ref.listen(signUpAuthProvider, (previous, next) {
       if(next.hasError && !next.isLoading){
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -27,14 +26,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 content: Text(next.error.toString())
             )
         );
+      }else if(!next.hasError && !next.isLoading){
+        print(next);
+        //Get.back();
       }
     });
-    final state = ref.watch(loginAuthProvider);
-
+    final state = ref.watch(signUpAuthProvider);
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Login Form'),
+          title: Text('SignUp Form'),
         ),
 
         body: Padding(
@@ -44,7 +45,14 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               child: ListView(
                 children: [
 
-
+                  FormBuilderTextField(
+                    name: 'fullname',
+                    decoration: const InputDecoration(labelText: 'Full Name'),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                    ]),
+                  ),
+                  SizedBox(height: 10,),
                   FormBuilderTextField(
                     name: 'email',
                     decoration: const InputDecoration(labelText: 'Email'),
@@ -58,10 +66,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     name: 'password',
                     // obscureText: isShow ? false: true,
                     decoration:  InputDecoration(
-                        // suffixIcon: IconButton(
-                        //     onPressed: (){
-                        //       ref.read(toggleProvider.notifier).change();
-                        //     }, icon: Icon(isShow ?Icons.remove_red_eye: Icons.lock_open_sharp)),
+                      // suffixIcon: IconButton(
+                      //     onPressed: (){
+                      //       ref.read(toggleProvider.notifier).change();
+                      //     }, icon: Icon(isShow ?Icons.remove_red_eye: Icons.lock_open_sharp)),
                         labelText: 'Password'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
@@ -73,18 +81,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                   Row(
                     children: [
-                      Text('Don\'t have an Account'),
+                      Text('Already have an Account'),
                       TextButton(onPressed: (){
-                        Get.to(() => SignUpPage(), transition:  Transition.leftToRight);
-                      }, child: Text('Sign Up'))
+                        // Get.back();
+                      }, child: Text('Login'))
                     ],
                   ),
                   SizedBox(height: 20,),
+
                   ElevatedButton(
                       onPressed: (){
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState?.saveAndValidate(focusOnInvalid: false) ?? false) {
-                            ref.read(loginAuthProvider.notifier).userLogin(data:_formKey.currentState!.value);
+                          ref.read(signUpAuthProvider.notifier).userSignUp(data:_formKey.currentState!.value);
                         }
                       }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
                   ),
