@@ -6,12 +6,12 @@ part of 'auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginAuthHash() => r'cc3324a6802fa23ce392ff05c5e4e74ee2f5c489';
+String _$loginAuthHash() => r'4001e23d614708a3f2ab042ef5d832036da53cbe';
 
 /// See also [LoginAuth].
 @ProviderFor(LoginAuth)
 final loginAuthProvider =
-    AutoDisposeAsyncNotifierProvider<LoginAuth, void>.internal(
+    AutoDisposeAsyncNotifierProvider<LoginAuth, UserModel>.internal(
   LoginAuth.new,
   name: r'loginAuthProvider',
   debugGetCreateSourceHash:
@@ -20,7 +20,7 @@ final loginAuthProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LoginAuth = AutoDisposeAsyncNotifier<void>;
+typedef _$LoginAuth = AutoDisposeAsyncNotifier<UserModel>;
 String _$signUpAuthHash() => r'e7a8d62a127d1b70340d4da03814861bb4778562';
 
 /// See also [SignUpAuth].

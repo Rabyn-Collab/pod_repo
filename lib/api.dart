@@ -4,7 +4,7 @@
 
 class Api{
 
-  static const baseUrl = 'http://192.168.0.109:5000';
+  static const baseUrl = 'https://back-service-0dwa.onrender.com';
   static const userLogin = '$baseUrl/api/userLogin';
   static const userSignUp = '$baseUrl/api/userSignUp';
 }
