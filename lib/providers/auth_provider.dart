@@ -12,7 +12,7 @@ class LoginAuth extends _$LoginAuth {
   FutureOr<UserModel> build() async {
     final bx = Hive.box('bx').get('user');
     print(bx);
-    return  bx== null ? UserModel.empty(): UserModel.fromJson(bx as Map<String, dynamic>);
+    return  bx== null ? UserModel.empty(): UserModel.fromJson(bx);
   }
 
    Future<void> userLogin({required Map data}) async {

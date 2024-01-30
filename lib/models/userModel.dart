@@ -21,7 +21,7 @@ class UserModel{
     required this.isAdmin
 });
 
-  factory UserModel.fromJson(Map<String, dynamic> json){
+  factory UserModel.fromJson(json){
 return UserModel(
     shippingAddress: ShippingAddress.fromJson(json['shippingAddress']),
     message: json['message'],
@@ -58,7 +58,7 @@ class ShippingAddress{
     required this.address
 });
 
-  factory ShippingAddress.fromJson(Map<String, dynamic> json){
+  factory ShippingAddress.fromJson(json){
     return ShippingAddress(city: json['city'], isEmpty: json['isEmpty'], address: json['address']);
   }
 
