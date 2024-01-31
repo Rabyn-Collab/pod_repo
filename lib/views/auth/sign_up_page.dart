@@ -19,6 +19,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(signUpAuthProvider, (previous, next) {
+
       if(next.hasError && !next.isLoading){
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -26,9 +27,14 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 content: Text(next.error.toString())
             )
         );
-      }else if(!next.hasError && !next.isLoading){
-        print(next);
-        //Get.back();
+      }else if(!next.isLoading && !next.hasError){
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                duration: Duration(seconds: 1),
+                content: Text('successfully user registered')
+            )
+        );
+       // Get.back();
       }
     });
     final state = ref.watch(signUpAuthProvider);
@@ -83,7 +89,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     children: [
                       Text('Already have an Account'),
                       TextButton(onPressed: (){
-                        // Get.back();
+                         Get.back();
                       }, child: Text('Login'))
                     ],
                   ),

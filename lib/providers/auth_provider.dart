@@ -11,14 +11,21 @@ class LoginAuth extends _$LoginAuth {
   @override
   FutureOr<UserModel> build() async {
     final bx = Hive.box('bx').get('user');
-    print(bx);
-    return  bx== null ? UserModel.empty(): UserModel.fromJson(bx);
+    return  bx == null ? UserModel.empty(): UserModel.fromJson(bx);
   }
 
    Future<void> userLogin({required Map data}) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => AuthService.userLogin(data: data));
   }
+
+  Future<void> userLogOut() async {
+    state = const AsyncLoading();
+    Hive.box('bx').clear();
+    state = AsyncData(UserModel.empty());
+  }
+
+
 
 }
 
