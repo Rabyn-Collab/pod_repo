@@ -26,7 +26,7 @@ class AuthService {
     try {
       final response = await _dio.post(Api.userSignUp, data: data);
     } on DioException catch (err) {
-      print(err.response);
+
       throw '${err.response}';
     }
   }

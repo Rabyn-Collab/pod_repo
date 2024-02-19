@@ -8,6 +8,8 @@ part 'auth_provider.g.dart';
 
 @riverpod
 class LoginAuth extends _$LoginAuth {
+
+
   @override
   FutureOr<UserModel> build() async {
     final bx = Hive.box('bx').get('user');
