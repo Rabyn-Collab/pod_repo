@@ -20,13 +20,15 @@ class productApi extends _$productApi {
 
 
    Future<void> addProduct(
-      {required String product_name,
+      {
+        required String product_name,
         required String product_detail,
         required int product_price,
         required String brand,
         required String category,
         required int countInStock,
-        required XFile product_image}) async {
+        required XFile product_image
+      }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => ProductService.addProduct(
         product_name: product_name,

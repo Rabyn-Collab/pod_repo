@@ -1,9 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:get/get.dart';
 import 'package:podsriver/providers/auth/auth_provider.dart';
+import 'package:podsriver/providers/other_provider.dart';
 import 'package:podsriver/providers/product/product_provider.dart';
 
 
@@ -16,6 +17,8 @@ class AddForm extends ConsumerStatefulWidget {
 
 class _AddFormState extends ConsumerState<AddForm> {
   final _formKey = GlobalKey<FormBuilderState>();
+  List<String> brands = ['Sunsilk', 'Nike', 'Levis', 'Huawei'];
+  List<String> categories = ['Clothing', 'Foods', 'Electronics'];
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,8 @@ class _AddFormState extends ConsumerState<AddForm> {
       }
     });
     final state = ref.watch(productApiProvider);
+    final image = ref.watch(pickImageProvider);
+
 
     return Scaffold(
         appBar: AppBar(
@@ -47,48 +52,102 @@ class _AddFormState extends ConsumerState<AddForm> {
                 children: [
 
                   FormBuilderTextField(
-                    name: 'fullname',
-                    decoration: const InputDecoration(labelText: 'Full Name'),
+                    name: 'product_name',
+                    decoration: const InputDecoration(labelText: 'Product Name'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
                     ]),
                   ),
                   SizedBox(height: 10,),
                   FormBuilderTextField(
-                    name: 'email',
-                    decoration: const InputDecoration(labelText: 'Email'),
+                    name: 'product_detail',
+                    decoration: const InputDecoration(labelText: 'Product Detail'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
-                      FormBuilderValidators.email(),
                     ]),
                   ),
                   SizedBox(height: 10,),
                   FormBuilderTextField(
-                    name: 'password',
-                    // obscureText: isShow ? false: true,
-                    decoration:  InputDecoration(
-                      // suffixIcon: IconButton(
-                      //     onPressed: (){
-                      //       ref.read(toggleProvider.notifier).change();
-                      //     }, icon: Icon(isShow ?Icons.remove_red_eye: Icons.lock_open_sharp)),
-                        labelText: 'Password'),
+                    name: 'product_price',
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Product Price'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
-                      FormBuilderValidators.minLength(6),
-                      FormBuilderValidators.maxLength(25),
                     ]),
                   ),
+                  SizedBox(height: 10,),
+                  FormBuilderDropdown<String>(
+                    name: 'brand',
+                    decoration: InputDecoration(
+                      labelText: 'Brand',
+                      suffix: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          _formKey.currentState!.fields['brand']
+                              ?.reset();
+                        },
+                      ),
+                      hintText: 'Select Brand',
+                    ),
+                    items: brands
+                        .map((brand) => DropdownMenuItem(
+                      alignment: AlignmentDirectional.center,
+                      value: brand,
+                      child: Text(brand),
+                    ))
+                        .toList(),
+                  ),
+                  SizedBox(height: 10,),
+                  FormBuilderDropdown<String>(
+                    name: 'category',
+                    decoration: InputDecoration(
+                      labelText: 'Category',
+                      suffix: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          _formKey.currentState!.fields['category']
+                              ?.reset();
+                        },
+                      ),
+                      hintText: 'Select Category',
+                    ),
+                    items: categories
+                        .map((category) => DropdownMenuItem(
+                      alignment: AlignmentDirectional.center,
+                      value: category,
+                      child: Text(category),
+                    ))
+                        .toList(),
+                  ),
+                  SizedBox(height: 10,),
+
+                  FormBuilderTextField(
+                    name: 'countInStock',
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'countInStock'),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(),
+                    ]),
+                  ),
+                  SizedBox(height: 10,),
+                  InkWell(
+                    onTap: (){
+                      ref.read(pickImageProvider.notifier).pickImage();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)
+                      ),
+                      height: 140,
+                      width: double.infinity,
+                      child: image == null ? Center(child: Text('please select an image'))
+                          : Image.file(File(image.path))
+                      ,
+                    ),
+                  ),
+
                   SizedBox(height: 20,),
 
-                  Row(
-                    children: [
-                      Text('Already have an Account'),
-                      TextButton(onPressed: (){
-                        Get.back();
-                      }, child: Text('Login'))
-                    ],
-                  ),
-                  SizedBox(height: 20,),
 
                   ElevatedButton(
                       onPressed: (){
