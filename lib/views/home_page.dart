@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:podsriver/api.dart';
 import 'package:podsriver/providers/auth/auth_provider.dart';
 import 'package:podsriver/providers/product/product_provider.dart';
+import 'package:podsriver/views/admin/add_form.dart';
 
 
 
@@ -12,18 +14,27 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final products = ref.watch(getProductProvider);
+    final auth = ref.watch(loginAuthProvider);
     return Scaffold(
       appBar: AppBar(),
         drawer:  Drawer(
           child: ListView(
             children: [
+              if(auth.value?.isAdmin == true)   ListTile(
+                onTap: (){
+                  Get.to(() => AddForm(), transition: Transition.leftToRight);
+                },
+                title: Text('Add Product'),
+                leading: Icon(Icons.add),
+              ),
               ListTile(
                 onTap: (){
                   ref.read(loginAuthProvider.notifier).userLogOut();
                 },
                 title: Text('User LogOut'),
                 leading: Icon(Icons.exit_to_app),
-              )
+              ),
+
             ],
           ),
         ),

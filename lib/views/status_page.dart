@@ -12,10 +12,10 @@ class StatusPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final auth = ref.watch(loginAuthProvider);
-    print('isLoading: ${auth.isLoading}');
-    print('isReloading: ${auth.isReloading}');
-    print('error: ${auth.error}');
-    print('========================');
+    // print('isLoading: ${auth.isLoading}');
+    // print('isReloading: ${auth.isReloading}');
+    // print('error: ${auth.error}');
+    // print('========================');
    return Scaffold(
      body: auth.when(
        skipLoadingOnReload: true,
