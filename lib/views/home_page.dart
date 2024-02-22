@@ -5,6 +5,7 @@ import 'package:podsriver/api.dart';
 import 'package:podsriver/providers/auth/auth_provider.dart';
 import 'package:podsriver/providers/product/product_provider.dart';
 import 'package:podsriver/views/admin/add_form.dart';
+import 'package:podsriver/views/admin/crud_page.dart';
 
 
 
@@ -22,10 +23,19 @@ class HomePage extends ConsumerWidget {
             children: [
               if(auth.value?.isAdmin == true)   ListTile(
                 onTap: (){
+                   Navigator.of(context).pop();
                   Get.to(() => AddForm(), transition: Transition.leftToRight);
                 },
                 title: Text('Add Product'),
                 leading: Icon(Icons.add),
+              ),
+              if(auth.value?.isAdmin == true)   ListTile(
+                onTap: (){
+                  Navigator.of(context).pop();
+                  Get.to(() => CrudPage(), transition: Transition.leftToRight);
+                },
+                title: Text('Crud Page'),
+                leading: Icon(Icons.settings),
               ),
               ListTile(
                 onTap: (){

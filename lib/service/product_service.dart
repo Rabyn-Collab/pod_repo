@@ -31,7 +31,9 @@ class ProductService {
       required String brand,
       required String category,
       required int countInStock,
-      required XFile product_image}) async {
+      required XFile product_image,
+      required String token
+      }) async {
     try {
       final formData = FormData.fromMap({
         'product_name': product_name,
@@ -41,9 +43,13 @@ class ProductService {
         'category': category,
         'countInStock': countInStock,
         'product_image': await MultipartFile.fromFile(product_image.path,
-            filename: 'upload.txt'),
+            filename: product_image.name),
       });
-      final response = await _dio.post(Api.addProduct, data: formData);
+      final response = await _dio.post(Api.addProduct, data: formData, options: Options(
+        headers: {
+          'Authorization': token
+        }
+      ));
     } on DioException catch (err) {
       throw '${err.response}';
     }
@@ -56,18 +62,24 @@ class ProductService {
       required String brand,
       required String category,
       required int countInStock,
+        required String token,
+        required String product_id,
       String? prevImage,
       XFile? product_image}) async {
     try {
       if (product_image == null) {
-        await _dio.patch(Api.crudProduct, data: {
+        await _dio.patch(Api.crudProduct + '/$product_id', data: {
           'product_name': product_name,
           'product_detail': product_detail,
           'product_price': product_price,
           'brand': brand,
           'category': category,
           'countInStock': countInStock,
-        });
+        },options: Options(
+            headers: {
+              'Authorization': token
+            }
+        ));
       } else {
         final formData = FormData.fromMap({
           'product_name': product_name,
@@ -77,11 +89,15 @@ class ProductService {
           'category': category,
           'countInStock': countInStock,
           'product_image': await MultipartFile.fromFile(product_image.path,
-              filename: 'upload.txt'),
+              filename: product_image.name),
           'prevImage': prevImage,
         });
 
-        await _dio.patch(Api.crudProduct, data: formData);
+        await _dio.patch(Api.crudProduct+ '/$product_id', data: formData, options: Options(
+            headers: {
+              'Authorization': token
+            }
+        ));
       }
     } on DioException catch (err) {
       throw '${err.response}';

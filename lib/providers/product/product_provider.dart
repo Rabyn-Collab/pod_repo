@@ -27,7 +27,8 @@ class productApi extends _$productApi {
         required String brand,
         required String category,
         required int countInStock,
-        required XFile product_image
+        required XFile product_image,
+        required String token
       }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => ProductService.addProduct(
@@ -36,6 +37,7 @@ class productApi extends _$productApi {
         product_price: product_price,
         brand: brand,
         category: category,
+        token: token,
         countInStock: countInStock,
         product_image: product_image));
   }
@@ -50,11 +52,15 @@ class productApi extends _$productApi {
         required String category,
         required int countInStock,
         String? prevImage,
+        required String token,
+        required String product_id,
         XFile? product_image}) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => ProductService.updateProduct(
         product_name: product_name, product_detail: product_detail,
         product_image: product_image,
+        product_id: product_id,
+        token: token,
         prevImage: prevImage,
         product_price: product_price, brand: brand, category: category, countInStock: countInStock)); 
   }

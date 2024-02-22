@@ -3,22 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:podsriver/api.dart';
+import 'package:podsriver/models/product.dart';
 import 'package:podsriver/providers/auth/auth_provider.dart';
 import 'package:podsriver/providers/other_provider.dart';
 import 'package:podsriver/providers/product/product_provider.dart';
 
 
 
-class AddForm extends ConsumerStatefulWidget {
+class EditForm extends ConsumerStatefulWidget {
+  final Product product;
+  EditForm(this.product);
 
   @override
-  ConsumerState<AddForm> createState() => _AddFormState();
+  ConsumerState<EditForm> createState() => _AddFormState();
 }
 
-class _AddFormState extends ConsumerState<AddForm> {
+class _AddFormState extends ConsumerState<EditForm> {
   final _formKey = GlobalKey<FormBuilderState>();
   List<String> brands = ['Sunsilk', 'Nike', 'Levis', 'Huawei', 'Diamond'];
-  List<String> categories = ['Clothing', 'Foods', 'Electronics'];
+  List<String> categories = ['Clothing', 'Foods', 'Electronics', 'Beauty'];
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,7 @@ class _AddFormState extends ConsumerState<AddForm> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Add Form'),
+          title: Text('Edit Form'),
         ),
 
         body: Padding(
@@ -55,6 +59,7 @@ class _AddFormState extends ConsumerState<AddForm> {
 
                   FormBuilderTextField(
                     name: 'product_name',
+                    initialValue: widget.product.product_name,
                     decoration: const InputDecoration(labelText: 'Product Name'),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.required(),
@@ -62,6 +67,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                   ),
                   SizedBox(height: 10,),
                   FormBuilderTextField(
+                    initialValue: widget.product.product_detail,
                     name: 'product_detail',
                     decoration: const InputDecoration(labelText: 'Product Detail'),
                     validator: FormBuilderValidators.compose([
@@ -71,6 +77,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                   SizedBox(height: 10,),
                   FormBuilderTextField(
                     name: 'product_price',
+                    initialValue: widget.product.product_price.toString(),
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Product Price'),
                     validator: FormBuilderValidators.compose([
@@ -80,6 +87,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                   SizedBox(height: 10,),
                   FormBuilderDropdown<String>(
                     name: 'brand',
+                    initialValue: widget.product.brand,
                     decoration: InputDecoration(
                       labelText: 'Brand',
                       suffix: IconButton(
@@ -102,6 +110,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                   SizedBox(height: 10,),
                   FormBuilderDropdown<String>(
                     name: 'category',
+                    initialValue: widget.product.category,
                     decoration: InputDecoration(
                       labelText: 'Category',
                       suffix: IconButton(
@@ -124,6 +133,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                   SizedBox(height: 10,),
 
                   FormBuilderTextField(
+                    initialValue: widget.product.countInStock.toString(),
                     name: 'countInStock',
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'countInStock'),
@@ -142,7 +152,7 @@ class _AddFormState extends ConsumerState<AddForm> {
                       ),
                       height: 140,
                       width: double.infinity,
-                      child: image == null ? Center(child: Text('please select an image'))
+                      child: image == null ? Image.network('${Api.baseUrl}${widget.product.product_image}', fit: BoxFit.cover)
                           : Image.file(File(image.path))
                       ,
                     ),
@@ -156,20 +166,32 @@ class _AddFormState extends ConsumerState<AddForm> {
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState?.saveAndValidate(focusOnInvalid: false) ?? false) {
 
-                         if(image !=null){
-                           Map map = Map.of(_formKey.currentState!.value);
-
-                           ref.read(productApiProvider.notifier).addProduct(
-                               product_name: map['product_name'],
-                               product_detail: map['product_detail'],
-                               product_price: int.parse(map['product_price']),
-                               brand: map['brand'],
-                               category: map['category'],
-                               token: auth.value!.token,
-                               countInStock: int.parse(map['countInStock']),
-                               product_image: image
-                           );
-                         }
+                          Map map = Map.of(_formKey.currentState!.value);
+                          if(image == null){
+                            ref.read(productApiProvider.notifier).updateProduct(
+                                product_name: map['product_name'],
+                                product_detail: map['product_detail'],
+                                product_price: int.parse(map['product_price']),
+                                brand: map['brand'],
+                                category: map['category'],
+                                token: auth.value!.token,
+                                product_id: widget.product.id,
+                                countInStock: int.parse(map['countInStock']),
+                            );
+                          }else{
+                            ref.read(productApiProvider.notifier).updateProduct(
+                              product_name: map['product_name'],
+                              product_detail: map['product_detail'],
+                              product_price: int.parse(map['product_price']),
+                              brand: map['brand'],
+                              category: map['category'],
+                              token: auth.value!.token,
+                              product_id: widget.product.id,
+                              countInStock: int.parse(map['countInStock']),
+                              prevImage: widget.product.product_image,
+                              product_image: image
+                            );
+                          }
 
                         }
                       }, child: state.isLoading ? Center(child: CircularProgressIndicator()): Text('submit')
