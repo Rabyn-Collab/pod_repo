@@ -20,7 +20,7 @@ final getProductProvider = AutoDisposeFutureProvider<List<Product>>.internal(
 );
 
 typedef GetProductRef = AutoDisposeFutureProviderRef<List<Product>>;
-String _$productApiHash() => r'f29c99dd5c3c91d3e6e115c8b897f12348b94d98';
+String _$productApiHash() => r'f3649a3dc6650b583e1a6adfd36576e50a4d0293';
 
 /// See also [productApi].
 @ProviderFor(productApi)

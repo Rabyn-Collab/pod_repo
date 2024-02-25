@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import 'package:podsriver/providers/auth/auth_provider.dart';
 import 'package:podsriver/providers/product/product_provider.dart';
 import 'package:podsriver/views/admin/add_form.dart';
 import 'package:podsriver/views/admin/crud_page.dart';
+import 'package:podsriver/views/detail_page.dart';
+import 'package:podsriver/views/user_pages/cart_page.dart';
 
 
 
@@ -17,7 +20,13 @@ class HomePage extends ConsumerWidget {
     final products = ref.watch(getProductProvider);
     final auth = ref.watch(loginAuthProvider);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
+            Get.to(() => CartPage(), transition:  Transition.leftToRight);
+          }, icon: Icon(Icons.shopping_bag))
+        ],
+      ),
         drawer:  Drawer(
           child: ListView(
             children: [
@@ -62,20 +71,29 @@ class HomePage extends ConsumerWidget {
                     ),
                     itemBuilder:(context, index){
                       final product = data[index];
-                      return GridTile(
-                        footer: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          color: Colors.black54,
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(child: Text(product.product_name, style: TextStyle(color: Colors.white),)),
-                              Text('Rs. ${product.product_price}', style: TextStyle(color: Colors.white),),
-                            ],
+                      return InkWell(
+                        onTap: (){
+                        Get.to(() => DetailPage(product: product), transition: Transition.leftToRight);
+                        },
+                        child: GridTile(
+                          footer: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            color: Colors.black54,
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(child: Text(product.product_name, style: TextStyle(color: Colors.white),)),
+                                Text('Rs. ${product.product_price}', style: TextStyle(color: Colors.white),),
+                              ],
+                            ),
                           ),
+                            child: CachedNetworkImage(
+                              errorWidget: (c,s, d){
+                                return Image.asset('assets/images/food.png');
+                              },
+                              imageUrl: '${Api.baseUrl}${product.product_image}', fit: BoxFit.cover,)
                         ),
-                          child: Image.network('${Api.baseUrl}${product.product_image}', fit: BoxFit.cover,)
                       );
                     }
                 ),
