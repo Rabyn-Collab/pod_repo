@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:podsriver/models/cart_item.dart';
-import 'package:podsriver/views/status_page.dart';
+import 'package:shopy/models/cart_item.dart';
+import 'package:shopy/views/status_page.dart';
 
 
 

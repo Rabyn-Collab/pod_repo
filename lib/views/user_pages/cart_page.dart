@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/providers/carts/cart_provider.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/providers/carts/cart_provider.dart';
 
 
 class CartPage extends ConsumerWidget {
@@ -12,6 +12,7 @@ class CartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final carts = ref.watch(cartItemsProvider);
     final totalAmount = ref.watch(cartItemsProvider.notifier).getTotal;
+    
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -85,8 +86,8 @@ class CartPage extends ConsumerWidget {
                 ),
                 SizedBox(height: 10,),
                 ElevatedButton(onPressed: (){
-                  ref.read(cartItemsProvider.notifier).clearAll();
-                }, child: Text('Check Out')),
+
+                }, child: Text('OrderPlace')),
               ],
             ),
           )

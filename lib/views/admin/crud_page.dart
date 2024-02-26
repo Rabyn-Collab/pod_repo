@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/providers/product/product_provider.dart';
-import 'package:podsriver/views/admin/edit_form.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/providers/product/product_provider.dart';
+import 'package:shopy/views/admin/edit_form.dart';
 
 
 class CrudPage extends ConsumerWidget {

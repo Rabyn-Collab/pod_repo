@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:podsriver/models/product.dart';
+import 'package:shopy/models/product.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/cart_item.dart';

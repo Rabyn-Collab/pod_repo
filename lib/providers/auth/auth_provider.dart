@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:podsriver/models/userModel.dart';
-import 'package:podsriver/service/auth_service.dart';
+import 'package:shopy/models/userModel.dart';
+import 'package:shopy/service/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart';

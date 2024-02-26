@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:podsriver/providers/auth/auth_provider.dart';
-import 'package:podsriver/views/auth/login_page.dart';
-import 'package:podsriver/views/home_page.dart';
+import 'package:shopy/providers/auth/auth_provider.dart';
+import 'package:shopy/views/auth/login_page.dart';
+import 'package:shopy/views/home_page.dart';
 
 
 

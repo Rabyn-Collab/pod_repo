@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/providers/auth/auth_provider.dart';
-import 'package:podsriver/providers/product/product_provider.dart';
-import 'package:podsriver/views/admin/add_form.dart';
-import 'package:podsriver/views/admin/crud_page.dart';
-import 'package:podsriver/views/detail_page.dart';
-import 'package:podsriver/views/user_pages/cart_page.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/providers/auth/auth_provider.dart';
+import 'package:shopy/providers/product/product_provider.dart';
+import 'package:shopy/views/admin/add_form.dart';
+import 'package:shopy/views/admin/crud_page.dart';
+import 'package:shopy/views/detail_page.dart';
+import 'package:shopy/views/user_pages/cart_page.dart';
 
 
 

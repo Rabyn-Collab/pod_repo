@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/models/product.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/models/product.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProductService {

@@ -1,6 +1,6 @@
 import 'package:image_picker/image_picker.dart';
-import 'package:podsriver/models/product.dart';
-import 'package:podsriver/service/product_service.dart';
+import 'package:shopy/models/product.dart';
+import 'package:shopy/service/product_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'product_provider.g.dart';

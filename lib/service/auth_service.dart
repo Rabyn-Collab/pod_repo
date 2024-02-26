@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/models/userModel.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/models/userModel.dart';
 
 class AuthService {
   static final _dio = Dio();

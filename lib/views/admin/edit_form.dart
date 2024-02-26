@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/models/product.dart';
-import 'package:podsriver/providers/auth/auth_provider.dart';
-import 'package:podsriver/providers/other_provider.dart';
-import 'package:podsriver/providers/product/product_provider.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/models/product.dart';
+import 'package:shopy/providers/auth/auth_provider.dart';
+import 'package:shopy/providers/other_provider.dart';
+import 'package:shopy/providers/product/product_provider.dart';
 
 
 

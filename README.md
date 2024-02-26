@@ -1,4 +1,4 @@
-# podsriver
+# shopy
 
 A new Flutter project.
 

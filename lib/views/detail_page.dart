@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:podsriver/api.dart';
-import 'package:podsriver/models/product.dart';
-import 'package:podsriver/providers/carts/cart_provider.dart';
+import 'package:shopy/api.dart';
+import 'package:shopy/models/product.dart';
+import 'package:shopy/providers/carts/cart_provider.dart';
 
 
 
