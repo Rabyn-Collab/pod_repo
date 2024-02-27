@@ -20,6 +20,26 @@ class AuthService {
     }
   }
 
+  static Future<UserModel> userUpdate({required Map data,   required String token}) async {
+
+    try {
+      final response = await _dio.patch(Api.userUpdate, data: {
+        'shippingAddress': data
+      }, options: Options(
+        headers: {
+          'Authorization': token
+        }
+      ));
+      final box = Hive.box('bx');
+      box.put('user', response.data);
+      return UserModel.fromJson(response.data);
+    } on DioException catch (err) {
+      print(err.response);
+      throw '${err.response}';
+    }on HiveError catch (err){
+      throw '${err.message}';
+    }
+  }
 
   static Future userSignUp({required Map data}) async {
 

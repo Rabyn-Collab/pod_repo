@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:shopy/api.dart';
+import 'package:shopy/providers/auth/auth_provider.dart';
 import 'package:shopy/providers/carts/cart_provider.dart';
+import 'package:shopy/views/user_pages/order_page.dart';
+import 'package:shopy/views/user_pages/shipping_page.dart';
 
 
 class CartPage extends ConsumerWidget {
@@ -12,10 +16,10 @@ class CartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final carts = ref.watch(cartItemsProvider);
     final totalAmount = ref.watch(cartItemsProvider.notifier).getTotal;
-    
+      final auth = ref.watch(loginAuthProvider);
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
+      body: carts.isEmpty ? Center(child: Text('Add some to cart')): Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
@@ -86,7 +90,11 @@ class CartPage extends ConsumerWidget {
                 ),
                 SizedBox(height: 10,),
                 ElevatedButton(onPressed: (){
-
+                    if(auth.value!.shippingAddress.isEmpty){
+                      Get.to(() => ShippingPage(), transition: Transition.leftToRight);
+                    }else{
+                      Get.to(() => OrderPage(), transition: Transition.leftToRight);
+                    }
                 }, child: Text('OrderPlace')),
               ],
             ),

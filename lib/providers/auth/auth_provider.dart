@@ -21,11 +21,17 @@ class LoginAuth extends _$LoginAuth {
     state = await AsyncValue.guard(() => AuthService.userLogin(data: data));
   }
 
+  Future<void> userUpdate({required Map data, required String token}) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() => AuthService.userUpdate(data: data, token: token));
+  }
+
   Future<void> userLogOut() async {
     state = const AsyncLoading();
     Hive.box('bx').clear();
     state = AsyncData(UserModel.empty());
   }
+
 
 
 
