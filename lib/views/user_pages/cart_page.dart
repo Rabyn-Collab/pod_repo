@@ -93,7 +93,7 @@ class CartPage extends ConsumerWidget {
                     if(auth.value!.shippingAddress.isEmpty){
                       Get.to(() => ShippingPage(), transition: Transition.leftToRight);
                     }else{
-                      Get.to(() => OrderPage(), transition: Transition.leftToRight);
+                      Get.to(() => OrderPage(carts: carts,totalAmount: totalAmount,), transition: Transition.leftToRight);
                     }
                 }, child: Text('OrderPlace')),
               ],

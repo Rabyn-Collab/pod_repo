@@ -19,7 +19,15 @@ class _ShippingPageState extends ConsumerState<ShippingPage> {
     ref.listen(loginAuthProvider, (previous, next) {
 
       next.whenOrNull(
-        data: (d)=>  Navigator.of(context).pop(),
+        data: (d){
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  duration: Duration(seconds: 1),
+                  content: Text('successfully updated')
+              )
+          );
+          Navigator.of(context).pop();
+        },
         error: (err, st) =>  ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 duration: Duration(seconds: 1),
@@ -27,18 +35,10 @@ class _ShippingPageState extends ConsumerState<ShippingPage> {
             )
         )
       );
-      // if(next.hasError && !next.isLoading){
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //       SnackBar(
-      //           duration: Duration(seconds: 1),
-      //           content: Text(next.error.toString())
-      //       )
-      //   );
-      // }else if(!next.hasError && next.isLoading){
-      //   Navigator.of(context).pop();
-      // }
+
     });
     final state = ref.watch(loginAuthProvider);
+
 
     return Scaffold(
         appBar: AppBar(

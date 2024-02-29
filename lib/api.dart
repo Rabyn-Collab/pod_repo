@@ -17,5 +17,8 @@ class Api{
   static const crudProduct  = '$baseUrl/api/product';
 
 
+  ///orders api
+
+  static const addOrder  = '$baseUrl/api/create-order';
 
 }

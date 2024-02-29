@@ -19,6 +19,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final products = ref.watch(getProductProvider);
     final auth = ref.watch(loginAuthProvider);
+
     return Scaffold(
       appBar: AppBar(
         actions: [

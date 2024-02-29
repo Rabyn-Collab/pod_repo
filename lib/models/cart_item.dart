@@ -41,6 +41,16 @@ class CartItem extends HiveObject {
     );
   }
 
+  Map<String, dynamic> toJson(){
+    return {
+      'name': this.name,
+      'product': this.product,
+      'image': this.image,
+      'price': this.price,
+      'qty': this.qty
+    };
+  }
+
 
 }
 
