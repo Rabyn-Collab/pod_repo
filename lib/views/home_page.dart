@@ -9,6 +9,7 @@ import 'package:shopy/views/admin/add_form.dart';
 import 'package:shopy/views/admin/crud_page.dart';
 import 'package:shopy/views/detail_page.dart';
 import 'package:shopy/views/user_pages/cart_page.dart';
+import 'package:shopy/views/user_pages/order_history.dart';
 
 
 
@@ -23,7 +24,7 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){
+         if(!auth.value!.isAdmin) IconButton(onPressed: (){
             Get.to(() => CartPage(), transition:  Transition.leftToRight);
           }, icon: Icon(Icons.shopping_bag))
         ],
@@ -31,6 +32,15 @@ class HomePage extends ConsumerWidget {
         drawer:  Drawer(
           child: ListView(
             children: [
+
+              if(auth.value?.isAdmin != true)   ListTile(
+                onTap: (){
+                  Navigator.of(context).pop();
+                  Get.to(() => OrderHistory(), transition: Transition.leftToRight);
+                },
+                title: Text('Order History'),
+                leading: Icon(Icons.settings),
+              ),
               if(auth.value?.isAdmin == true)   ListTile(
                 onTap: (){
                    Navigator.of(context).pop();

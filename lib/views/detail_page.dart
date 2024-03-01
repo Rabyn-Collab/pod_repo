@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopy/api.dart';
 import 'package:shopy/models/product.dart';
+import 'package:shopy/providers/auth/auth_provider.dart';
 import 'package:shopy/providers/carts/cart_provider.dart';
 
 
@@ -45,15 +46,19 @@ class DetailPage extends StatelessWidget {
             ),
 
             Consumer(
-              builder: (context, ref, _) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: ElevatedButton(
-                    onPressed: (){
-                      ref.read(cartItemsProvider.notifier).addToCart(product);
-                    },
-                    child: Text('Add To Cart')
-                ),
-              ),
+              builder: (context, ref, _) {
+                final auth = ref.watch(loginAuthProvider);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10, horizontal: 10),
+                  child: ElevatedButton(
+                      onPressed:  auth.value!.isAdmin ? null:() {
+                        ref.read(cartItemsProvider.notifier).addToCart(product);
+                      },
+                      child: Text('Add To Cart')
+                  ),
+                );
+              }
             )
           ],
         )
