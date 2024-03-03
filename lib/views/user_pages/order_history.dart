@@ -42,8 +42,8 @@ class OrderHistory extends ConsumerWidget {
                                           },
                                           imageUrl: '${Api.baseUrl}${e.image}',
                                           height: 150,
-                                          fit: BoxFit.cover,)),
-                                        SizedBox(width: 20,),
+                                          fit: BoxFit.cover)),
+                                        SizedBox(width: 20),
                                         Expanded(child: Text(e.name)),
                                       ],
                                     );
