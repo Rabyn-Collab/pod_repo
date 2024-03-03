@@ -157,7 +157,136 @@ class _GetUserOrdersProviderElement
   String get token => (origin as GetUserOrdersProvider).token;
 }
 
-String _$getOrderDetailHash() => r'50c5dc01c262c3faca3e52eac20d2428e9951b9b';
+String _$getAllOrdersHash() => r'c47a4be52e3cf82386ba1a14bf77e83d62989c7c';
+
+/// See also [getAllOrders].
+@ProviderFor(getAllOrders)
+const getAllOrdersProvider = GetAllOrdersFamily();
+
+/// See also [getAllOrders].
+class GetAllOrdersFamily extends Family<AsyncValue<List<OrderModel>>> {
+  /// See also [getAllOrders].
+  const GetAllOrdersFamily();
+
+  /// See also [getAllOrders].
+  GetAllOrdersProvider call({
+    required String token,
+  }) {
+    return GetAllOrdersProvider(
+      token: token,
+    );
+  }
+
+  @override
+  GetAllOrdersProvider getProviderOverride(
+    covariant GetAllOrdersProvider provider,
+  ) {
+    return call(
+      token: provider.token,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getAllOrdersProvider';
+}
+
+/// See also [getAllOrders].
+class GetAllOrdersProvider extends AutoDisposeFutureProvider<List<OrderModel>> {
+  /// See also [getAllOrders].
+  GetAllOrdersProvider({
+    required String token,
+  }) : this._internal(
+          (ref) => getAllOrders(
+            ref as GetAllOrdersRef,
+            token: token,
+          ),
+          from: getAllOrdersProvider,
+          name: r'getAllOrdersProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getAllOrdersHash,
+          dependencies: GetAllOrdersFamily._dependencies,
+          allTransitiveDependencies:
+              GetAllOrdersFamily._allTransitiveDependencies,
+          token: token,
+        );
+
+  GetAllOrdersProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.token,
+  }) : super.internal();
+
+  final String token;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<OrderModel>> Function(GetAllOrdersRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetAllOrdersProvider._internal(
+        (ref) => create(ref as GetAllOrdersRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        token: token,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<OrderModel>> createElement() {
+    return _GetAllOrdersProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetAllOrdersProvider && other.token == token;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetAllOrdersRef on AutoDisposeFutureProviderRef<List<OrderModel>> {
+  /// The parameter `token` of this provider.
+  String get token;
+}
+
+class _GetAllOrdersProviderElement
+    extends AutoDisposeFutureProviderElement<List<OrderModel>>
+    with GetAllOrdersRef {
+  _GetAllOrdersProviderElement(super.provider);
+
+  @override
+  String get token => (origin as GetAllOrdersProvider).token;
+}
+
+String _$getOrderDetailHash() => r'4a86554e66f29a87e495dc43b7f471b5ddd3fdd9';
 
 /// See also [getOrderDetail].
 @ProviderFor(getOrderDetail)
@@ -171,9 +300,11 @@ class GetOrderDetailFamily extends Family<AsyncValue<OrderModel>> {
   /// See also [getOrderDetail].
   GetOrderDetailProvider call({
     required String id,
+    required String token,
   }) {
     return GetOrderDetailProvider(
       id: id,
+      token: token,
     );
   }
 
@@ -183,6 +314,7 @@ class GetOrderDetailFamily extends Family<AsyncValue<OrderModel>> {
   ) {
     return call(
       id: provider.id,
+      token: provider.token,
     );
   }
 
@@ -206,10 +338,12 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
   /// See also [getOrderDetail].
   GetOrderDetailProvider({
     required String id,
+    required String token,
   }) : this._internal(
           (ref) => getOrderDetail(
             ref as GetOrderDetailRef,
             id: id,
+            token: token,
           ),
           from: getOrderDetailProvider,
           name: r'getOrderDetailProvider',
@@ -221,6 +355,7 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
           allTransitiveDependencies:
               GetOrderDetailFamily._allTransitiveDependencies,
           id: id,
+          token: token,
         );
 
   GetOrderDetailProvider._internal(
@@ -231,9 +366,11 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.id,
+    required this.token,
   }) : super.internal();
 
   final String id;
+  final String token;
 
   @override
   Override overrideWith(
@@ -249,6 +386,7 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         id: id,
+        token: token,
       ),
     );
   }
@@ -260,13 +398,16 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetOrderDetailProvider && other.id == id;
+    return other is GetOrderDetailProvider &&
+        other.id == id &&
+        other.token == token;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, token.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -275,6 +416,9 @@ class GetOrderDetailProvider extends AutoDisposeFutureProvider<OrderModel> {
 mixin GetOrderDetailRef on AutoDisposeFutureProviderRef<OrderModel> {
   /// The parameter `id` of this provider.
   String get id;
+
+  /// The parameter `token` of this provider.
+  String get token;
 }
 
 class _GetOrderDetailProviderElement
@@ -284,6 +428,8 @@ class _GetOrderDetailProviderElement
 
   @override
   String get id => (origin as GetOrderDetailProvider).id;
+  @override
+  String get token => (origin as GetOrderDetailProvider).token;
 }
 
 String _$orderApiHash() => r'c0bd442926cbead4b92d5893772161fccc64c6df';

@@ -22,5 +22,6 @@ class Api{
   static const addOrder  = '$baseUrl/api/create-order';
   static const userOrder  = '$baseUrl/api/order/user';
   static const orderDetail  = '$baseUrl/api/order';
+  static const allOrder  = '$baseUrl/api/orders';
 
 }

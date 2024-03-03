@@ -6,6 +6,7 @@ import 'package:shopy/api.dart';
 import 'package:shopy/providers/auth/auth_provider.dart';
 import 'package:shopy/providers/product/product_provider.dart';
 import 'package:shopy/views/admin/add_form.dart';
+import 'package:shopy/views/admin/all_orders.dart';
 import 'package:shopy/views/admin/crud_page.dart';
 import 'package:shopy/views/detail_page.dart';
 import 'package:shopy/views/user_pages/cart_page.dart';
@@ -40,6 +41,14 @@ class HomePage extends ConsumerWidget {
                 },
                 title: Text('Order History'),
                 leading: Icon(Icons.settings),
+              ),
+              if(auth.value?.isAdmin == true)   ListTile(
+                onTap: (){
+                  Navigator.of(context).pop();
+                  Get.to(() => AllOrderPage(), transition: Transition.leftToRight);
+                },
+                title: Text('All User Orders'),
+                leading: Icon(Icons.slideshow),
               ),
               if(auth.value?.isAdmin == true)   ListTile(
                 onTap: (){

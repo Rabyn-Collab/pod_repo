@@ -12,9 +12,11 @@ part 'order_provider.g.dart';
 
 @riverpod
 Future<List<OrderModel>> getUserOrders(GetUserOrdersRef ref, {required String token}) => OrderService.getUserOrder(token);
+@riverpod
+Future<List<OrderModel>> getAllOrders(GetAllOrdersRef ref, {required String token}) => OrderService.getAllOrders(token);
 
 @riverpod
-Future<OrderModel> getOrderDetail(GetOrderDetailRef ref, {required String id}) => OrderService.getOrderDetail(id);
+Future<OrderModel> getOrderDetail(GetOrderDetailRef ref, {required String id, required String token}) => OrderService.getOrderDetail(id, token);
 
 @riverpod
 class OrderApi extends _$OrderApi {

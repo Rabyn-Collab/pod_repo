@@ -8,16 +8,17 @@ import 'package:shopy/providers/order/order_provider.dart';
 import 'package:shopy/views/order_detail.dart';
 
 
-
-class OrderHistory extends ConsumerWidget {
-  const OrderHistory({super.key});
+class AllOrderPage extends ConsumerWidget {
+  const AllOrderPage({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final auth = ref.watch(loginAuthProvider);
-    final orders = ref.watch(getUserOrdersProvider(token: auth.value!.token));
+    final orders = ref.watch(getAllOrdersProvider(token: auth.value!.token));
     return Scaffold(
-      appBar:  AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 40,
+      ),
       body: SafeArea(
           child: orders.when(
               data: (data){
@@ -32,12 +33,12 @@ class OrderHistory extends ConsumerWidget {
                       final order = data[index];
                       return Card(
                         child: ListTile(
-                            onTap: (){
-                              Get.to(() => OrderDetail(id:order.id), transition: Transition.leftToRight);
-                            },
-                            title: Text(order.id),
+                          onTap: (){
+                          Get.to(() => OrderDetail(id:order.id), transition: Transition.leftToRight);
+                          },
+                          title: Text(order.id),
                             subtitle: Text(order.dateTime),
-                            trailing:  Icon(Icons.arrow_forward_ios_rounded)
+                          trailing:  Icon(Icons.arrow_forward_ios_rounded)
                         ),
                       );
                     }
